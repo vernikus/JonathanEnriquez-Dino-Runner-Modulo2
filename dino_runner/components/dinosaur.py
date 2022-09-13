@@ -17,8 +17,8 @@ class Dinosaur:
         self.dino_duck = False
 
     def update(self, user_input):
-        if self.duck:
-            self.duck()
+        # if self.duck:
+        #     self.duck()
         if self.dino_run:
             self.run()
         if self.dino_jump:
@@ -29,8 +29,9 @@ class Dinosaur:
             self.dino_jump = True
         elif user_input[pygame.K_DOWN] and not self.dino_jump:
             self.dino_duck = True
-            self.dino_run = False
-            self.dino_jump = False
+            self.duck()
+            # self.dino_run = False
+            # self.dino_jump = False
         elif not (self.dino_jump or user_input[pygame.K_DOWN]):
             self.dino_duck = False
             self.dino_run = True
