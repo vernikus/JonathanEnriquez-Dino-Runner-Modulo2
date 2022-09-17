@@ -1,6 +1,6 @@
 import pygame
 from dino_runner.components.power_up.power_up import PowerUp
-from dino_runner.utils.constants import SHIELD, SHIELD_TYPE,HAMMER,HAMMER_TYPE, DEFAULT_TYPE, HAMMER,SCREEN_WIDTH, SCREEN_HEIGHT
+from dino_runner.utils.constants import SHIELD, SHIELD_TYPE,HAMMER,HAMMER_TYPE, DEFAULT_TYPE, HAMMER
 
 
 
