@@ -2,7 +2,7 @@ import pygame
 from dino_runner.components.obstacles.obstacle_manager import ObstacleManager
 from dino_runner.components.power_up.power_up_manager import PowerUpManager
 
-from dino_runner.utils.constants import BG, DEFAULT_TYPE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS ,FONT_STYLE
+from dino_runner.utils.constants import BG, DEFAULT_TYPE, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, SHIELD_TYPE, TITLE, FPS ,FONT_STYLE,HAMMER_TYPE
 from dino_runner.components.dinosaur import Dinosaur
 
 
@@ -52,7 +52,7 @@ class Game:
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         self.obstacle_manager.update(self)
-        self.power_up_maganer.update(self.score,self.game_speed,self.player)
+        self.power_up_maganer.update(self.score,self.game_speed,self.player,user_input)
 
     def draw(self):
         self.clock.tick(FPS)
@@ -103,10 +103,14 @@ class Game:
         if self.player.has_power_up:
             time_to_show = round((self.player.power_time_up - pygame.time.get_ticks())/ 1000 ,2)
             if time_to_show >= 0:
-                self.generator_text(f'{self.player.type.capitalize()} enabled for {time_to_show} seconds',(0,0,250),500,50,0)
-            else :
+                if self.player.type == HAMMER_TYPE:
+                    self.generator_text(f'Press space to use a hammer',(0,0,250),500,50,0)
+                elif self.player.type == SHIELD_TYPE:
+                    self.generator_text(f'{self.player.type.capitalize()} enabled for {time_to_show} seconds',(0,0,250),500,50,0)
+            else:
                 self.player.has_power_up = False#####
-                self.player.type = DEFAULT_TYPE
+                self.player.type = DEFAULT_TYPE    
+      
 
     def show_menu(self):
         self.screen.fill((255,255,255))

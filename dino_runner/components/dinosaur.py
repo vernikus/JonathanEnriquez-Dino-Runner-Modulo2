@@ -3,10 +3,11 @@ import pygame
 from pygame.sprite import Sprite
 
 
-from dino_runner.utils.constants import DEFAULT_TYPE, DUCKING_SHIELD, JUMPING_SHIELD, RUNNING,JUMPING,DUCKING, RUNNING_SHIELD, SHIELD_TYPE
-DUCK_IMG = {DEFAULT_TYPE:DUCKING,SHIELD_TYPE:DUCKING_SHIELD}
-JUMP_IMG = {DEFAULT_TYPE:JUMPING,SHIELD_TYPE:JUMPING_SHIELD}
-RUN_IMG = {DEFAULT_TYPE:RUNNING,SHIELD_TYPE:RUNNING_SHIELD}
+from dino_runner.utils.constants import DEFAULT_TYPE, DUCKING_HAMMER, DUCKING_SHIELD, HAMMER_TYPE, JUMPING_SHIELD, RUNNING,JUMPING,DUCKING, RUNNING_SHIELD, SHIELD_TYPE,JUMPING_HAMMER,RUNNING_HAMMER
+DUCK_IMG = {DEFAULT_TYPE:DUCKING,SHIELD_TYPE:DUCKING_SHIELD,HAMMER_TYPE:DUCKING_HAMMER}
+JUMP_IMG = {DEFAULT_TYPE:JUMPING,SHIELD_TYPE:JUMPING_SHIELD,HAMMER_TYPE:JUMPING_HAMMER}
+RUN_IMG = {DEFAULT_TYPE:RUNNING,SHIELD_TYPE:RUNNING_SHIELD,HAMMER_TYPE:RUNNING_HAMMER}
+from dino_runner.components.power_up.shield import Hammer
 class Dinosaur(Sprite):
     X_POS = 80
     Y_POS = 310
@@ -43,11 +44,12 @@ class Dinosaur(Sprite):
             self.dino_duck = True
             self.dino_run = False
             self.dino_jump = False
+        elif user_input[pygame.K_SPACE] and self.has_power_up == True:
+            Hammer.shoot_hammer(self,user_input,self)
         elif not self.dino_jump:
             self.dino_duck = False
             self.dino_run = True
-            self.dino_jump = False
-        
+            self.dino_jump = False  
         if self.step_index >= 9:
             self.step_index = 0
 
@@ -79,6 +81,8 @@ class Dinosaur(Sprite):
 
     def draw(self, screen):
         screen.blit(self.image, (self.dino_rect.x,self.dino_rect.y))
+
+    #Hammer.shoot_hammer(self,user_input,player)
 
 
 
